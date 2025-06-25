@@ -242,6 +242,7 @@
             align-items: center;
             width: 68px;
             height: 60px;
+            position: relative;
         }
         #search-logo::before{
             content: "";
@@ -253,6 +254,18 @@
             background-position: -302px -414px;
             background-repeat: no-repeat;
         }
+        #search-logo::after{
+            display: none;
+        }
+        #search > form:focus-within #search-logo::after{
+            content: "";
+            width: 1px;
+            height: 20px;
+            background-color: #e4e4e4;
+            position: absolute;
+            display: inline-block;
+            right: 0;
+        }   
         #search-right{
             flex: 1;
             display: flex;

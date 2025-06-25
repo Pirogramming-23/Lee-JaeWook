@@ -219,31 +219,51 @@
             outline: none;
         }
         #search > form a{
-            display: inline-block;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
             width: 68px;
             margin-right: 12px;
             height: 100%;
-        padding-left: 10px;
+            padding-left: 10px;
         }
-            #search-logo {
+        #search-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 68px;
+            height: 60px;
+        }
+        #search-logo::before{
+            content: "";
+            display: block;
             width: 40px;
             height: 40px;
             background-image: url(./sp_main_search.png);
-            position: relative;
-            z-index: 1;
             background-size: 323px 185px;
             background-position: -270px -145px;
             background-repeat: no-repeat;
             filter: brightness(0) saturate(100%) sepia(100%) hue-rotate(85deg) saturate(600%) brightness(95%);
         }
         #search-right{
-            display: inline-block;
+            flex: 1;
+            display: flex;
+            align-items: stretch;
+            justify-content: flex-end;
         }
+        #search-keyboard, #search-recent, #search-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            }
         #search-keyboard::before, #search-recent::before, #search-button::before{
-            display: block;
             content: "";
+            display: block;
             background-image: url(./sp_main.png);
             background-repeat: no-repeat;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
         }
         #search-keyboard::before{
             background-size: 463px 442px;
@@ -262,6 +282,8 @@
             background-position: -405px -79px;
             width: 25px;
             height: 25px;
+            filter: brightness(50%) saturate(40%) sepia(50%) hue-rotate(85deg) saturate(600%) brightness(95%);
+
         }
             </style>
             <div id="search">

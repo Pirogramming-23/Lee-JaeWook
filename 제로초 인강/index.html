@@ -209,6 +209,9 @@
             border-radius: 33px;
             text-align: left;
         }
+        #search > form:hover{
+            box-shadow: 0 2px 4px 0 rgb(0, 0, 0, .12);
+        }
         #search-input{
             width: 480px;
             padding: 17px 0;
@@ -217,6 +220,12 @@
             font-weight: bold;
             border:none;
             outline: none;
+        }
+        #search-input::placeholder{
+            color: white;
+        }
+        #search-input:focus::placeholder{
+            color: rgb(230, 230, 230);
         }
         #search > form a{
             display: inline-flex;
@@ -239,11 +248,10 @@
             display: block;
             width: 40px;
             height: 40px;
-            background-image: url(./sp_main_search.png);
-            background-size: 323px 185px;
-            background-position: -270px -145px;
+            background-image: url(./sp_main.png);
+            background-size: 530px 460px;
+            background-position: -302px -414px;
             background-repeat: no-repeat;
-            filter: brightness(0) saturate(100%) sepia(100%) hue-rotate(85deg) saturate(600%) brightness(95%);
         }
         #search-right{
             flex: 1;
@@ -258,7 +266,7 @@
             }
         #search-keyboard::before, #search-recent::before, #search-button::before{
             content: "";
-            display: block;
+            display: inline-block;
             background-image: url(./sp_main.png);
             background-repeat: no-repeat;
             background-color: transparent;
@@ -271,19 +279,33 @@
             width: 24px;
             height: 14px;
         }
+        #search-keyboard:hover::before{
+            filter:brightness(0.7);
+        }
         #search-recent::before{
             background-size: 463px 442px;
             background-position: -453px -422px;
             width: 10px;
             height: 6px;
         }
-        #search-button::before{
-            background-size: 463px 442px;
-            background-position: -405px -79px;
+        #search-button{
+            padding: 17px 27px 16px 10px;
+        }
+        #search-button > div {
+            display: inline-block;
+            background: #03c75a;
             width: 25px;
             height: 25px;
-            filter: brightness(50%) saturate(40%) sepia(50%) hue-rotate(85deg) saturate(600%) brightness(95%);
-
+        }
+        #search-button > div::before{
+            content: '';
+            display: inline-block;
+            background-image: url(./sp_main.png);
+            background-size: 463px 442px;
+            background-position: -405px -79px;
+            background-repeat: no-repeat;
+            width: 25px;
+            height: 25px;
         }
             </style>
             <div id="search">
@@ -300,8 +322,8 @@
                         <button href="#" id="search-recent">
                             <span class="blind">자동완성/최근검색어펼치기</span>
                         </button>
-                        <button herf="#" id="search-button">
-                        <span id="blind"></span>
+                        <button id="search-button">
+                        <div><span class="blind">검색</span></div>
                         </button>
                     </div>
                 </form>

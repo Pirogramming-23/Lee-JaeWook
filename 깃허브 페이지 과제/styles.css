@@ -1,0 +1,54 @@
+/* sty */
+    * {
+
+        box-sizing: border-box;
+    }
+    html, body{
+        height: 100%;
+        margin: 0;
+        color: gray;
+    }
+    body{
+        display: flex;
+        flex-direction: column;
+    }
+    main{
+        flex: 1;
+        margin-top: 10px;
+        background-color: gray;
+    }
+    .navbar{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px 32px;
+    }
+    .navbar ul{
+        display: flex;
+        gap: 24px;
+        margin: 0;
+        list-style: none;
+        padding: 0;
+    }
+    .navbar ul a{
+        text-decoration: none
+    }
+    .navbar-login{
+        display: flex;
+        gap: 12px;
+        margin-left: auto;
+        align-items: center;
+    }
+    .navbar .navbar-login button{
+        margin-left: 12px;
+    }
+    .navbar-logo{
+        margin-right: 32px;
+    }
+    footer{
+        display: flex;
+        justify-content: flex-end;
+    }
+    #footer-image{
+        height: 200px;
+    }

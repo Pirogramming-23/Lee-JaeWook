@@ -22,6 +22,12 @@ function check_numbers(){
     let strike = 0;
     let ball = 0;
 
+    //버튼을 누를 시에 attemps가 줄어듬ㄹ
+    if(attempts > 0){
+        attempts--;
+        document.getElementById("attempts").innerText = attempts;
+    }
+
     for(let i = 0; i < 3; i++){
         if(input[i] === answer[i]){
             strike++;
@@ -31,7 +37,7 @@ function check_numbers(){
         }
     }
     
-    //result id를 받아서 결과출력
+    // result id를 받아서 결과출력
     let resultText = `입력한 값:${input.join("")} = `;
     if(strike === 0 && ball === 0){
         resultText += "O";
@@ -47,4 +53,17 @@ function check_numbers(){
     }
     const resultDiv = document.getElementById("results");
     resultDiv.innerText += resultText + `\n`;
+
+    // TODO:attemps를 다 쓰게 될 시에 게임오버png출력 또는 스또라이크 3개일 시 승리 
+    if(attempts === 0){
+        console.log("패배")
+        document.querySelector(".submit-button").disabled = true;
+        document.querySelector(".submit-button").style.backgroundColor = "gray";
+
+    }
+    else if (strike >= 3){
+        console.log("승리")
+        document.querySelector(".submit-button").disabled = true;
+        document.querySelector(".submit-button").style.backgroundColor = "gray";
+    }
 }

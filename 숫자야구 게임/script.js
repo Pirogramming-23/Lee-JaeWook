@@ -15,11 +15,6 @@ function check_numbers(){
     const value1 = document.getElementById("number1").value;
     const value2 = document.getElementById("number2").value;
     const value3 = document.getElementById("number3").value;
-
-    
-    const input = [value1, value2, value3]
-    console.log(answer)
-    console.log(value1, value2, value3)    
     
     document.getElementById("number1").value = "";
     document.getElementById("number2").value = "";
@@ -27,6 +22,17 @@ function check_numbers(){
 
     let strike = 0;
     let ball = 0;
+
+    // 인풋값이 비어져 있을 시, 값을 다시 반환
+    if(!value1||!value2||!value3){
+        document.getElementById("number1").value = "";
+        document.getElementById("number2").value = "";
+        document.getElementById("number3").value = "";
+        console.log("입력값없음초기화");
+        alert("값이 입력되지 않았습니다!")
+        return; 
+    }
+    const input = [value1, value2, value3];
 
     //버튼을 누를 시에 attemps가 줄어듬ㄹ
     if(attempts > 0){

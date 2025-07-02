@@ -1,3 +1,4 @@
+// @ts-nocheck
 // TODO:버튼 누르고 시도 9번 다 써버리면 게임 오버
 // 정답은 임의로 설정(나중에 난수로 만들 예정)
 const answer = ['4', '7', '2']
@@ -29,8 +30,9 @@ function check_numbers(){
             ball++;
         }
     }
-    console.log(strike)
-    console.log(ball)
-
-
+    
+    //result id를 받아서 결과출력
+    const resultText = `입력한 값:${input.join("")} = ${strike}S ${ball}B\n`;
+    const resultDiv = document.getElementById("results");
+    resultDiv.innerText += resultText;
 }

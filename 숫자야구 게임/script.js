@@ -57,12 +57,20 @@ function check_numbers(){
     // TODO:attemps를 다 쓰게 될 시에 게임오버png출력 또는 스또라이크 3개일 시 승리 
     if(attempts === 0){
         console.log("패배")
+        const resultImg = document.getElementById("game-result-img");
+        resultImg.src = "fail.png";
+        resultImg.alt = "게임 오바";
+        resultImg.style.display = "block";
         document.querySelector(".submit-button").disabled = true;
         document.querySelector(".submit-button").style.backgroundColor = "gray";
 
     }
     else if (strike >= 3){
         console.log("승리")
+        const resultImg = document.getElementById("game-result-img");
+        resultImg.src = "success.png";
+        resultImg.alt = "게임 승리";
+        resultImg.style.display = "block";
         document.querySelector(".submit-button").disabled = true;
         document.querySelector(".submit-button").style.backgroundColor = "gray";
     }

@@ -32,7 +32,19 @@ function check_numbers(){
     }
     
     //result id를 받아서 결과출력
-    const resultText = `입력한 값:${input.join("")} = ${strike}S ${ball}B\n`;
+    let resultText = `입력한 값:${input.join("")} = `;
+    if(strike === 0 && ball === 0){
+        resultText += "O";
+    }
+    else{
+        if (strike > 0){
+            resultText += `${strike}S`;
+        }
+        if(ball > 0)
+        {
+            resultText += `${ball}B`;
+        }
+    }
     const resultDiv = document.getElementById("results");
-    resultDiv.innerText += resultText;
+    resultDiv.innerText += resultText + `\n`;
 }

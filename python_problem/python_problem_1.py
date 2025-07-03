@@ -43,10 +43,12 @@ while True:
             continue
         else:
             break
-    
+    # 7. 탈출조건에다가 누가 이겼는지 출력하면 됨
     for _ in range(ans):
         num += 1
         print(f"{player[turn]} : {num}")
         if num == 31:
+            winner = (turn + 1) % 2
+            print(f"{player[winner]} win!")
             exit()
     turn = (turn + 1) % 2

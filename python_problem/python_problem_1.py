@@ -2,8 +2,8 @@
 # 1. 변수 num을 아래와 같이 선언하여라.
 # 그냥 num 선언 및 초기화
 num = 0
-player = ["playerA", "playerB"]
 turn = 0
+player = ["playerA", "playerB"]
 # 2. input() 함수를 이용하여 1에서 3사이의 정수를 입력 받는 코드를 작성하여라.
 
 # 3. input 값이 0보다 작을 시 정수를 입력하라고 출력/123을 입력하지 않은 경우
@@ -25,30 +25,36 @@ turn = 0
 # 6. 탈출조건인 num이 31을 넘길 시에 게임 종료
 # 그리고 턴을 만들어야 함 playerA playerB 배열에 넣고 turn을
 # 돌려야 할듯 함
-while True:
-    print(f"\n{player[turn]} 차례입니다.")
+def brGame():
+    global num, turn
+    
     while True:
-        ans = input("부를 숫자의 개수를 입력하세요(1, 2, 3만 입력 가능) : ")
+        print(f"\n{player[turn]} 차례입니다.")
+        
+        while True:
+            ans = input("부를 숫자의 개수를 입력하세요(1, 2, 3만 입력 가능) : ")
+                
+            # [fix]문자열이 들어오거나 블랭크가 들어올 시 반복문이 안돌아가짐 
+            if not ans.isdigit():
+                print("정수를 입력하세요")
+                continue
             
-        # [fix]문자열이 들어오거나 블랭크가 들어올 시 반복문이 안돌아가짐 
-        if not ans.isdigit():
-            print("정수를 입력하세요")
-            continue
-        
-        ans = int(ans)
-        print(ans)
-        
-        if ans not in [1, 2, 3]:
-            print("1, 2, 3 중 하나를 입력하세요")
-            continue
-        else:
+            ans = int(ans)
+            
+            if ans not in [1, 2, 3]:
+                print("1, 2, 3 중 하나를 입력하세요")
+                continue
             break
-    # 7. 탈출조건에다가 누가 이겼는지 출력하면 됨
-    for _ in range(ans):
-        num += 1
-        print(f"{player[turn]} : {num}")
-        if num == 31:
-            winner = (turn + 1) % 2
-            print(f"{player[winner]} win!")
-            exit()
-    turn = (turn + 1) % 2
+        # 7. 탈출조건에다가 누가 이겼는지 출력하면 됨
+        for _ in range(ans):
+            num += 1
+            print(f"{player[turn]} : {num}")
+            if num == 31:
+                winner = (turn + 1) % 2
+                print(f"\n{player[winner]} win!")
+                exit()
+                
+        turn = (turn + 1) % 2
+    
+# 8. 6단계까지 중복되는 코드를 찾아 함수로 만들어라. 이때, 함수 이름은 brGame으로 한다.
+brGame()

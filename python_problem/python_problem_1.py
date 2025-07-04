@@ -1,9 +1,12 @@
 # baskin robbins31 스타트
 # 1. 변수 num을 아래와 같이 선언하여라.
 # 그냥 num 선언 및 초기화
+import random
 num = 0
 turn = 0
-player = ["playerA", "playerB"]
+# [fix] playerB를 computer로 대체
+player = ["playerA", "computer"]
+
 # 2. input() 함수를 이용하여 1에서 3사이의 정수를 입력 받는 코드를 작성하여라.
 
 # 3. input 값이 0보다 작을 시 정수를 입력하라고 출력/123을 입력하지 않은 경우
@@ -31,30 +34,37 @@ def brGame():
     while True:
         print(f"\n{player[turn]} 차례입니다.")
         
-        while True:
-            ans = input("부를 숫자의 개수를 입력하세요(1, 2, 3만 입력 가능) : ")
+        # computer가 random 숫자를 부르게 만들기
+        if player[turn] == "computer":
+            ans = random.randint(1, 3)
+            print(f"\ncomputer: {ans}")
+        else:
+            while True:
+                ans = input("부를 숫자의 개수를 입력하세요(1, 2, 3만 입력 가능) : ")
+                    
+                # [fix]문자열이 들어오거나 블랭크가 들어올 시 반복문이 안돌아가짐 
+                if not ans.isdigit():
+                    print("정수를 입력하세요")
+                    continue
                 
-            # [fix]문자열이 들어오거나 블랭크가 들어올 시 반복문이 안돌아가짐 
-            if not ans.isdigit():
-                print("정수를 입력하세요")
-                continue
+                ans = int(ans)
+                
+                if ans not in [1, 2, 3]:
+                    print("1, 2, 3 중 하나를 입력하세요")
+                    continue
+                break
             
-            ans = int(ans)
-            
-            if ans not in [1, 2, 3]:
-                print("1, 2, 3 중 하나를 입력하세요")
-                continue
-            break
-        # 7. 탈출조건에다가 누가 이겼는지 출력하면 됨
+            # 7. 탈출조건에다가 누가 이겼는지 출력하면 됨
         for _ in range(ans):
             num += 1
             print(f"{player[turn]} : {num}")
             if num == 31:
                 winner = (turn + 1) % 2
                 print(f"\n{player[winner]} win!")
-                exit()
+                return
                 
         turn = (turn + 1) % 2
     
 # 8. 6단계까지 중복되는 코드를 찾아 함수로 만들어라. 이때, 함수 이름은 brGame으로 한다.
+# 9. computer랑 player를 만들어서 턴 번갈아가면서 출력시키기
 brGame()

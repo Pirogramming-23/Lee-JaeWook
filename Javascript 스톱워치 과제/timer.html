@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>피로그래밍 스톱워치</title>
+    <link rel="stylesheet" href="timer.css" />
+</head>
+<body>
+    <main>
+        <h1>피로그래밍 스톱워치</h1>
+
+        <section class="stopwatch">
+        <div class="time-display">00:00</div>
+        <div class="buttons">
+            <button id="start">start</button>
+            <button id="stop">stop</button>
+            <button id="reset">reset</button>
+        </div>
+        </section>
+
+        <section class="record-section">
+        <div class="record-header">
+            <button id="toggle-all">전체 선택</button>
+            <span class="record-title" id="record-title">구간 기록</span>
+            <button class="record-delete" id="record-delete">🧻➡️🗑️</button>
+        </div>
+        <div class="record-body" id="record-list">
+        </div>
+        </section>
+    </main>
+    <script src="timer.js"></script>
+</body>
+</html>

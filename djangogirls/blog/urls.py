@@ -1,5 +1,3 @@
-print("✅ blog.urls 불러짐")
-
 from django.urls import path
 from . import views
 

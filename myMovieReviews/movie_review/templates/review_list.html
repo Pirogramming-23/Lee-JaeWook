@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>리뷰 목록</title>
+    <style>
+
+
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 40px;
+            background-color: #f9f9f9;
+        }
+        .navbar {
+            background-color: #F2F2F2; /* 원하는 배경색 */
+            display: flex;
+            justify-content: space-between; /* 좌우 끝 정렬 */
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .container-content{
+            display: flex;              /* 내용과 이미지 옆으로 배치 */
+            flex-wrap:wrap;
+            gap: 20px;                  /* 이미지와 텍스트 사이 간격 */
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-overflow:ellipsis;
+            overflow:hidden;
+        }
+        .container-content a{
+            display: -webkit-box;
+            -webkit-line-clamp: 3;      /* 최대 3줄까지 표시 */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .review {
+            background-color: rgb(208, 192, 192);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            height: 450px;
+            max-width: 200px;
+            word-break:keep-all;
+            overflow-wrap:break-work;
+            overflow:hidden;
+            display:flex;
+            flex-direction:column;
+        }
+        .review-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            
+        }
+        .review-title a{
+            text-decoration: none;
+            color: inherit;
+        }
+        .review-meta {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        .new-btn {
+            display: inline-block;
+            padding: 5px 18px;
+            margin: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .new-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    {% comment %} 3. navbar에다가 리뷰 작성 버튼 만듦 {% endcomment %}
+    <nav class="navbar">
+    <div class="logo">
+        <a href="{% url 'review_list' %}">
+        <img src="{% static 'images/logo2.png' %}" alt="로고">
+        </a>
+    </div>
+    <a class="new-btn" href="{% url 'review_create' %}">리뷰 작성</a>
+    </nav>
+
+
+    <div class="container">
+        {% comment %} 1. 작성한 모든 리뷰의 개요가 나옴 {% endcomment %}
+        <div class = "container-content">
+        {% for review in reviews %}
+            <div class="review">
+                {% comment %} 2. 제목 클릭시에 디테일 창으로 넘어감 {% endcomment %}
+                <div class="review-title">
+                    <a href="{% url 'review_detail' review.pk %}">
+                        {{ review.title }}
+                        <small>{{ review.get_absolute_url }}</small> 
+                    </a>
+                </div>
+                <div class="review-meta">
+                    {{ review.created_at|date:"Y-m-d H:i" }}
+                </div>
+                
+                {% if review.img %}
+                <div class="review-img">
+                    <img src="{{ review.img.url }}" alt="리뷰 이미지"
+                        style="width: 200px; height: 300px; object-fit: cover; margin-bottom: 10px;">
+                </div>
+                {% endif %}
+
+                <div class="review-content">
+                    개봉년도: {{ review.year }}<br>
+                    장르: {{ review.get_genre_display }}<br>
+                    별점: {{ review.rating }} / 5
+                </div>
+
+            </div>
+        {% empty %}
+            <p>리뷰가 아직 없습니다.</p>
+        {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1 class="title">{{ tool.name }}</h1>
+    <p><strong>종류:</strong> {{ tool.kind }}</p>
+    <p>{{ tool.content }}</p>
+
+    {% if tool.image %}
+        <img src="{{ tool.image.url }}" alt="{{ tool.name }}" style="width:200px;">
+    {% endif %}
+
+    <div class="btn-group">
+        <a href="{% url 'devtool_update' tool.pk %}" class="btn edit"> 수정</a>
+        <a href="{% url 'devtool_delete' tool.pk %}" class="btn delete" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+        <a href="{% url 'devtool_list' %}" class="btn list">목록</a>
+    </div>
+</div>
+{% endblock %}

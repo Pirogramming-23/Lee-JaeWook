@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}아이디어 상세{% endblock %}
+
+{% block content %}
+<main class="container">
+  <h1 class="page-title">Idea Detail</h1>
+  <p class="page-subtitle">아이디어 상세 정보 페이지입니다. 작성한 내용을 확인해보세요!</p>
+
+  <div class="idea-detail-box">
+    {% if idea.image %}
+      <img src="{{ idea.image.url }}" alt="썸네일" class="detail-img">
+    {% else %}
+      <img src="{% static 'board/default.png' %}" alt="기본 이미지" class="detail-img">
+    {% endif %}
+
+    <h2>{{ idea.title }}</h2>
+
+    <p><strong>1 아이디어 관심도</strong><br>{{ idea.interest }}</p>
+    <p><strong>2 예상 개발툴</strong><br>{{ idea.devtool }}</p>
+    <p><strong>3 아이디어 설명</strong><br>{{ idea.content|linebreaksbr }}</p>
+
+    <div class="detail-buttons">
+      <form action="{% url 'idea_delete' idea.pk %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-red">삭제</button>
+      </form>
+      <a href="{% url 'idea_list' %}" class="btn btn-gray">목록</a>
+      <a href="{% url 'idea_update' idea.pk %}" class="btn btn-blue">수정</a>
+    </div>
+  </div>
+</main>
+{% endblock %}

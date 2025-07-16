@@ -103,7 +103,12 @@ def devtool_list(request):
 
 def devtool_detail(request, pk):
     tool = get_object_or_404(DevTool, pk=pk)
-    return render(request, 'board/devtool_detail.html', {'tool': tool})
+    ideas_using_tool = Idea.objects.filter(devtool=tool)
+
+    return render(request, 'board/devtool_detail.html', {
+        'tool': tool,
+        'ideas_using_tool': ideas_using_tool
+    })
 
 def increase_interest(request, pk):
     if request.method == 'POST':

@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import IdeaForm, DevToolForm
 from .models import Idea, IdeaStar, DevTool
 import json
-from django.http import JsonResponse, HttpResponseNotAllowed
+from django.http import JsonResponse, HttpResponseNotAllowed, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.db.models import Count
-
+from django.contrib.auth.models import User
 
 def idea_create(request):
     if request.method == 'POST':
@@ -47,9 +47,28 @@ def idea_list(request):
     return render(request, 'board/idea_list.html', context)
 
 
+# def idea_detail(request, pk):
+#     idea = get_object_or_404(Idea, pk=pk)
+#     return render(request, 'board/idea_detail.html', {'idea': idea})
+
+
 def idea_detail(request, pk):
     idea = get_object_or_404(Idea, pk=pk)
-    return render(request, 'board/idea_detail.html', {'idea': idea})
+
+    session_key = request.session.session_key
+    if not session_key:
+        request.session.create()
+        session_key = request.session.session_key
+
+    starred = request.session.get('starred_ideas', [])
+    is_starred = pk in starred
+
+    context = {
+        'idea': idea,
+        'is_starred': is_starred,
+    }
+    return render(request, 'board/idea_detail.html', context)
+
 
 def idea_update(request, pk):
     idea = get_object_or_404(Idea, pk=pk)

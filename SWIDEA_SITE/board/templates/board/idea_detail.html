@@ -5,15 +5,26 @@
 
 {% block content %}
 <main class="container">
-  <h1 class="page-title">Idea Detail</h1>
-  <p class="page-subtitle">아이디어 상세 정보 페이지입니다. 작성한 내용을 확인해보세요!</p>
+  <h1 class="page-title" style = "text-align:center;">Idea Detail</h1>
+
 
   <div class="idea-detail-box">
     {% if idea.image %}
       <img src="{{ idea.image.url }}" alt="썸네일" class="detail-img">
     {% else %}
-      <img src="{% static 'board/default.png' %}" alt="기본 이미지" class="detail-img">
+      <img src="{% static 'board/default.jpg' %}" alt="기본 이미지" class="detail-img">
     {% endif %}
+
+    <form method="post" action="{% url 'toggle_star' idea.pk %}">
+      {% csrf_token %}
+      {% if is_starred %}
+        <button type="submit" style="border:none;background:none;font-size:24px;color:gold;">★ 찜한 아이디어</button>
+      {% else %}
+        <button type="submit" style="border:none;background:none;font-size:24px;color:#aaa;">☆ 찜하지 않음</button>
+      {% endif %}
+    </form>
+
+
 
     <h2>{{ idea.title }}</h2>
 

@@ -4,7 +4,6 @@
     .tool-link {
         text-decoration: none;
         color: inherit;
-        display: block;
     }
 
     .tool-card {
@@ -25,11 +24,13 @@
 
     {% for tool in tools %}
         <div class="tool-card">
-        <a href="{% url 'devtool_detail' tool.pk %}" class="tool-link">
-            <h3>{{ tool.name }}</h3>
+            <h3>
+                <a href="{% url 'devtool_detail' tool.pk %}" class="tool-link">
+                    {{ tool.name }}
+                </a>
+            </h3>
             <p><strong>{{ tool.kind }}</strong></p>
             <p>{{ tool.content }}</p>
-        </a>
         </div>
     {% endfor %}
 </div>

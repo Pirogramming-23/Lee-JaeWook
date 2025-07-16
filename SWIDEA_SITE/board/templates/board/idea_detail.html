@@ -29,7 +29,12 @@
     <h2>{{ idea.title }}</h2>
 
     <p><strong>1 아이디어 관심도</strong><br>{{ idea.interest }}</p>
-    <p><strong>2 예상 개발툴</strong><br>{{ idea.devtool }}</p>
+    <p><strong>2 예상 개발툴</strong><br>
+      <a href="{% url 'devtool_detail' idea.devtool.pk %}">
+        {{ idea.devtool.name }}
+      </a>
+    </p>
+
     <p><strong>3 아이디어 설명</strong><br>{{ idea.content|linebreaksbr }}</p>
 
     <div class="detail-buttons">

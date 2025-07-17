@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}아이디어 리스트{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 style = "text-align: center">Idea List</h1>
+    <form method="get" class="sort-form">
+        <label for="sort">정렬기준 :</label>
+        <select name="sort" id="sort" onchange="this.form.submit()">
+            <option value="">--정렬기준--</option>
+            <option value="starred" {% if request.GET.sort == "starred" %}selected{% endif %}>즐겨찾기순</option>
+            <option value="interest" {% if request.GET.sort == "interest" %}selected{% endif %}>관심도순</option>
+            <option value="title" {% if request.GET.sort == "title" %}selected{% endif %}>이름순</option>
+            <option value="created_at" {% if request.GET.sort == "created_at" %}selected{% endif %}>등록순</option>
+            <option value="-created_at" {% if request.GET.sort == "-created_at" %}selected{% endif %}>최신순</option>
+        </select>
+    </form>
+
+    <div class="idea-list">
+        {% for idea in ideas %}
+        <div class="idea-card">
+            <span class="star-icon" data-id="{{ idea.pk }}" onclick="toggleStar(event, {{ idea.pk }})">
+                {% if idea in starred_ideas %}
+                    ★
+                {% else %}
+                    ☆
+                {% endif %}
+            </span>
+            {% if idea.image %}
+                <img src="{{ idea.image.url }}" alt="썸네일">
+            {% else %}
+                <img src="{% static 'board/default.jpg' %}" alt="기본 썸네일">
+            {% endif %}
+            <h3><a href="{% url 'idea_detail' idea.pk %}">{{ idea.title }}</a></h3>
+            <p>예상 개발툴 : {{ idea.devtool.name }}</p>
+            <p>
+                아이디어 관심도 :
+                <span class="interest-count" data-id="{{ idea.pk }}">{{ idea.interest }}</span>
+                <button class="btn-increase" data-id="{{ idea.pk }}" onclick="event.stopPropagation()">+</button>
+                <button class="btn-decrease" data-id="{{ idea.pk }}" onclick="event.stopPropagation()">-</button>
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+    <script>
+        function toggleStar(event, ideaId) {
+            event.stopPropagation();
+            fetch(`/ideas/${ideaId}/toggle_star/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('서버 오류');
+                return response.json();
+            })
+            .then(data => {
+                const starIcon = document.querySelector(`.star-icon[data-id='${ideaId}']`);
+                starIcon.textContent = data.starred ? '★' : '☆';
+            })
+            .catch(error => {
+                console.error(error);
+                alert("즐겨찾기 실패");
+            });
+        }
+
+        document.querySelectorAll('.btn-increase').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const ideaId = btn.dataset.id;
+                fetch(`/ideas/${ideaId}/increase_interest/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                })
+                .then(res => res.json())
+                .then(data => {
+                    document.querySelector(`.interest-count[data-id='${ideaId}']`).textContent = data.interest;
+                });
+            });
+        });
+
+        document.querySelectorAll('.btn-decrease').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const ideaId = btn.dataset.id;
+                fetch(`/ideas/${ideaId}/decrease_interest/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                })
+                .then(res => res.json())
+                .then(data => {
+                    document.querySelector(`.interest-count[data-id='${ideaId}']`).textContent = data.interest;
+                });
+            });
+        });
+</script>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h2>개발툴 수정</h2>
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="button-group">
+            <button type="submit" class="action-btn edit">저장</button>
+            <a href="{% url 'devtool_detail' form.instance.pk %}" class="action-btn back">취소</a>
+        </div>
+        </form>
+    </div>
+{% endblock %}

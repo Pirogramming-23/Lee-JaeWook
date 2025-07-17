@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .tool-link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .tool-card {
+        background-color: rgba(0, 0, 0, 0.05);
+        padding: 16px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+    .tool-card:hover {
+        background-color: rgba(0, 0, 0, 0.08);
+    }
+</style>
+
+<div class="container">
+    <h1 class="title">DevTool List</h1>
+
+    {% for tool in tools %}
+        <div class="tool-card">
+            <h3>
+                <a href="{% url 'devtool_detail' tool.pk %}" class="tool-link">
+                    {{ tool.name }}
+                </a>
+            </h3>
+            <p><strong>{{ tool.kind }}</strong></p>
+            <p>{{ tool.content }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

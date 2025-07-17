@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}이재욱_SWIDEA_SITE{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'board/style.css' %}">
+    <style>
+        nav {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        nav a {
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: #007bff;
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+        }
+            .btn-group {
+        margin-top: 30px;
+        display: flex;
+        gap: 16px;
+        }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 18px;
+        border-radius: 8px;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+        transition: background-color 0.2s;
+    }
+
+    .btn.edit {
+        background-color: #4CAF50; 
+    }
+
+    .btn.delete {
+        background-color: #f44336; 
+    }
+
+    .btn.list {
+        background-color: #2196F3; 
+    }
+
+    .btn:hover {
+        opacity: 0.85;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'idea_create' %}">아이디어 등록</a>
+            <a href="{% url 'idea_list' %}">아이디어 관리</a>
+            <a href="{% url 'devtool_create' %}">개발툴 등록</a>
+            <a href="{% url 'devtool_list' %}">개발툴 관리</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

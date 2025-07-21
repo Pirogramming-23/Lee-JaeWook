@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>피로스타그램</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'img/instagram_logo.ico' %}" type="image/png">
+
+</head>
+<body>
+<h1>
+    <img src="{% static 'img/instagram_logo.jpg' %}" alt="Instagram Logo" style="height: 32px; vertical-align: middle; margin-right: 10px;">
+        Pirostagram
+</h1>
+<a href="{% url 'pirostagram:post_create' %}">+ 새 게시글 작성</a>
+
+<hr>
+
+{% for post in posts %}
+    <div class="post">
+        <h2>{{ post.title }}</h2>
+        
+        {% if post.image %}
+        <img src="{{ post.image.url }}">
+        {% endif %}
+        <p>{{ post.content }}</p>
+
+        <p><small>작성일: {{ post.created_at|date:"Y-m-d H:i" }}</small></p>
+
+        <form action="{% url 'pirostagram:post_delete' post.pk %}" method="post">
+            {% csrf_token %}
+            <button type="submit">삭제</button>
+        </form>
+
+        <div class="like-section">
+            <button type="button" onclick="likePost({{ post.id }})">
+            ❤️ 
+            </button>
+            <span id="like-count-{{ post.id }}">{{ post.like_count }}</span>
+
+            {% comment %} <button type="button" onclick="likePost({{ post.id }})">좋아요</button> {% endcomment %}
+        </div>
+
+        <input type="text" placeholder="댓글을 입력하세요" class="comment-input" data-post-id="{{ post.id }}">
+        <button class="comment-submit" data-post-id="{{ post.id }}">댓글 작성</button>
+
+        <ul class="comment-list" id="comment-list-{{ post.id }}">
+    {% for comment in post.comments.all %}
+        <li id="comment-{{ comment.id }}">
+            {{ comment.content }}
+            <button class="comment-delete" data-comment-id="{{ comment.id }}">삭제</button>
+        </li>
+    {% endfor %}
+</ul>
+
+    </div>
+{% empty %}
+    <p>게시글이 없습니다.</p>
+{% endfor %}
+
+<script src="{% static 'js/ajax.js' %}"></script>
+
+</body>
+</html>
